@@ -1,0 +1,5 @@
+piggymetrics-account-service-1         | 2024-01-20 02:54:12.624 ERROR [account-service,86560128a95f5dd9,a5106bdd0b0602af,false] 1 --- [stics-service-1] c.p.a.c.StatisticsServiceClientFallback  : Error during update statistics for account: kishore
+piggymetrics-statistics-service-1      | 2024-01-20 02:54:12.741  INFO [statistics-service,86560128a95f5dd9,4a154c6190d7bd17,false] 1 --- [nio-7000-exec-2] c.p.s.service.ExchangeRatesServiceImpl   : exchange rates has been updated: RateList{date=2024-01-20, base=null, rates=null}
+
+piggymetrics-statistics-service-1      | Caused by: java.lang.NullPointerException: null
+piggymetrics-statistics-service-1      |        at com.piggymetrics.statistics.service.ExchangeRatesServiceImpl.getCurrentRates(ExchangeRatesServiceImpl.java:40)

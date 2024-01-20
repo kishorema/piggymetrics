@@ -1,62 +1,70 @@
-version: '2.1'
+version: '3.4'
+x-common-variables: &common-variables
+  CONFIG_SERVICE_PASSWORD: "abc123"
+  NOTIFICATION_SERVICE_PASSWORD: "abc123"
+  STATISTICS_SERVICE_PASSWORD: "abc123"
+  ACCOUNT_SERVICE_PASSWORD: "abc123"
+  MONGODB_PASSWORD: "abc123"
 services:
   rabbitmq:
+    image: rabbitmq:alpine
     ports:
-      - 5672:5672
-
+      - "5672:5672"
+    environment: *common-variables
   config:
     build: config
     ports:
-      - 8888:8888
-
+      - "8888:8888"
+    environment: *common-variables
   registry:
     build: registry
-
+    environment: *common-variables
   gateway:
     build: gateway
-
+    environment: *common-variables
   auth-service:
     build: auth-service
     ports:
-      - 5000:5000
-
+      - "5000:5000"
+    environment: *common-variables
   auth-mongodb:
     build: mongodb
     ports:
-      - 25000:27017
-
+      - "25000:27017"
+    environment: *common-variables
   account-service:
     build: account-service
     ports:
-      - 6000:6000
-
+      - "6000:6000"
+    environment: *common-variables
   account-mongodb:
     build: mongodb
     ports:
-      - 26000:27017
-
+      - "26000:27017"
+    environment: *common-variables
   statistics-service:
     build: statistics-service
     ports:
-      - 7000:7000
-
+      - "7000:7000"
+    environment: *common-variables
   statistics-mongodb:
     build: mongodb
     ports:
-      - 27000:27017
-
+      - "27000:27017"
+    environment: *common-variables
   notification-service:
     build: notification-service
     ports:
-      - 8000:8000
-
+      - "8000:8000"
+    environment: *common-variables
   notification-mongodb:
     build: mongodb
     ports:
-      - 28000:27017
-
+      - "28000:27017"
+    environment: *common-variables
   monitoring:
     build: monitoring
-
+    environment: *common-variables
   turbine-stream-service:
     build: turbine-stream-service
+    environment: *common-variables
