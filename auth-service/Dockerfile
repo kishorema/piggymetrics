@@ -1,4 +1,4 @@
-FROM java:8u111-jre-alpine
+FROM openjdk:8-jre-alpine
 MAINTAINER Alexander Lukyanchikov <sqshq@sqshq.com>
 
 ADD ./target/auth-service.jar /app/

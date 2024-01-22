@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Docker: Attach to simple node backend",
+            "remoteRoot": "usr/src/app",
+            "port": 6000,
+            "localRoot": "${workspaceFolder}",
+            "protocol": "inspector",
+            "restart": true,
+            "address": "localhost"
+        }
+    ]
+}

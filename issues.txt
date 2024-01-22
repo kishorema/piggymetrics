@@ -3,3 +3,6 @@ piggymetrics-statistics-service-1      | 2024-01-20 02:54:12.741  INFO [statisti
 
 piggymetrics-statistics-service-1      | Caused by: java.lang.NullPointerException: null
 piggymetrics-statistics-service-1      |        at com.piggymetrics.statistics.service.ExchangeRatesServiceImpl.getCurrentRates(ExchangeRatesServiceImpl.java:40)
+
+
+exec /init.sh: no such file or directory

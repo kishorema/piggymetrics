@@ -7,64 +7,168 @@ x-common-variables: &common-variables
   MONGODB_PASSWORD: "abc123"
 services:
   rabbitmq:
-    image: rabbitmq:alpine
+    image: rabbitmq:3-management
     ports:
       - "5672:5672"
     environment: *common-variables
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   config:
     build: config
     ports:
       - "8888:8888"
     environment: *common-variables
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   registry:
     build: registry
     environment: *common-variables
+    restart: always
+    ports:
+      - "8761:8761"
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   gateway:
     build: gateway
     environment: *common-variables
+    restart: always
+    ports:
+      - "80:4000"
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   auth-service:
     build: auth-service
     ports:
       - "5000:5000"
     environment: *common-variables
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   auth-mongodb:
     build: mongodb
     ports:
       - "25000:27017"
     environment: *common-variables
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   account-service:
     build: account-service
     ports:
       - "6000:6000"
     environment: *common-variables
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   account-mongodb:
     build: mongodb
     ports:
       - "26000:27017"
-    environment: *common-variables
+    environment:
+      <<: *common-variables
+      INIT_DUMP: account-service-dump.js
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   statistics-service:
     build: statistics-service
     ports:
       - "7000:7000"
     environment: *common-variables
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   statistics-mongodb:
     build: mongodb
     ports:
       - "27000:27017"
     environment: *common-variables
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   notification-service:
     build: notification-service
     ports:
       - "8000:8000"
     environment: *common-variables
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   notification-mongodb:
     build: mongodb
     ports:
       - "28000:27017"
     environment: *common-variables
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   monitoring:
     build: monitoring
     environment: *common-variables
+    restart: always
+    ports:
+      - "9000:8080"
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
   turbine-stream-service:
     build: turbine-stream-service
     environment: *common-variables
+    restart: always
+    ports:
+      - "8989:8989"
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
