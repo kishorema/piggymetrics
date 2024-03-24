@@ -5,10 +5,10 @@ spring:
         native:
           search-locations: classpath:/shared
   profiles:
-     active: native
+    active: native
   security:
     user:
-      password: ${CONFIG_SERVICE_PASSWORD}
+      password: "abc123"
 
 server:
   port: 8888

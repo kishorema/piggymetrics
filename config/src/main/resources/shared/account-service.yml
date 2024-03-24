@@ -19,7 +19,7 @@ spring:
 server:
   servlet:
     context-path: /accounts
-  port: 6000
+  port: 6001
 
 feign:
   hystrix:
