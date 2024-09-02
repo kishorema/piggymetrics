@@ -9,7 +9,7 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     ports:
-      - "5672:5672"
+      - "5672"
     environment: *common-variables
     restart: always
     logging:
@@ -18,8 +18,9 @@ services:
         max-file: "10"
   config:
     build: config
+    container_name: config
     ports:
-      - "8888:8888"
+      - "8888"
     environment: *common-variables
     restart: always
     logging:
@@ -28,10 +29,11 @@ services:
         max-file: "10"
   registry:
     build: registry
+    container_name: registry
     environment: *common-variables
     restart: always
     ports:
-      - "8761:8761"
+      - "8761"
     depends_on:
       config:
         condition: service_healthy
@@ -41,6 +43,7 @@ services:
         max-file: "10"
   gateway:
     build: gateway
+    container_name: gateway
     environment: *common-variables
     restart: always
     ports:
@@ -54,8 +57,9 @@ services:
         max-file: "10"
   auth-service:
     build: auth-service
+    container_name: auth-service
     ports:
-      - "5000:5000"
+      - "5000"
     environment: *common-variables
     restart: always
     depends_on:
@@ -69,7 +73,7 @@ services:
     build: mongodb
     container_name: "auth-mongodb"
     ports:
-      - "25000:27017"
+      - "27017"
     environment: *common-variables
     restart: always
     logging:
@@ -78,8 +82,9 @@ services:
         max-file: "10"
   account-service:
     build: account-service
+    container_name: account-service
     ports:
-      - "6001:6001"
+      - "6001"
     environment: *common-variables
     restart: always
     depends_on:
@@ -93,7 +98,7 @@ services:
     build: mongodb
     container_name: "account-mongodb"
     ports:
-      - "26000:27017"
+      - "27017"
     environment:
       <<: *common-variables
       INIT_DUMP: account-service-dump.js
@@ -104,8 +109,9 @@ services:
         max-file: "10"
   statistics-service:
     build: statistics-service
+    container_name: statistics-service
     ports:
-      - "7000:7000"
+      - "7000"
     environment: *common-variables
     restart: always
     depends_on:
@@ -119,7 +125,7 @@ services:
     build: mongodb
     container_name: "statistics-mongodb"
     ports:
-      - "27000:27017"
+      - "27017"
     environment: *common-variables
     restart: always
     logging:
@@ -128,8 +134,9 @@ services:
         max-file: "10"
   notification-service:
     build: notification-service
+    container_name: notification-service
     ports:
-      - "8000:8000"
+      - "8000"
     environment: *common-variables
     restart: always
     depends_on:
@@ -143,7 +150,7 @@ services:
     build: mongodb
     container_name: "notification-mongodb"
     ports:
-      - "28000:27017"
+      - "27017"
     environment: *common-variables
     restart: always
     logging:
